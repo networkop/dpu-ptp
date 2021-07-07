@@ -1,0 +1,17 @@
+- name: Log into DockerHub
+  community.docker.docker_login:
+    username: $oauthtoken
+    password: "{{ ansible_env.NGC_KEY }}"
+    registry_url: "{{ ngc_registry }}"
+
+- name: Restart container
+  community.docker.docker_container:
+    name: "{{ container_name }}"
+    state: started
+    privileged: True
+    network_mode: host
+    restart_policy: unless-stopped
+    image: "{{ image_name }}"
+    volumes:
+    - "{{ config_dir }}:/etc/ptp4l/"
+    - "{{ log_dir }}:/var/log/"

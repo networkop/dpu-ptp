@@ -1,0 +1,5 @@
+- name: Check NGC_KEY is defined as an environment variable
+  ansible.builtin.fail:
+    msg: "NGC_KEY is not defined. Provide your Key with 'export NGC_KEY=...'"
+  when: ansible_env.NGC_KEY is not defined
+

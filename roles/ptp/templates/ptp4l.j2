@@ -1,0 +1,19 @@
+[global]
+domainNumber {{ ptp4l.global.domainNumber }}
+priority1 {{ ptp4l.global.priority1 }}
+priority2 {{ ptp4l.global.priority2 }}
+use_syslog {{ ptp4l.global.use_syslog }}
+logging_level {{ ptp4l.global.logging_level }}
+tx_timestamp_timeout {{ ptp4l.global.tx_timestamp_timeout }}
+hybrid_e2e {{ ptp4l.global.hybrid_e2e }}
+dscp_event {{ ptp4l.global.dscp_event }}
+dscp_general {{ ptp4l.global.dscp_general }}
+
+[{{ ptp_interface }}]
+logAnnounceInterval {{ ptp4l.interface.logAnnounceInterval }}
+announceReceiptTimeout {{ ptp4l.interface.announceReceiptTimeout }}
+logSyncInterval {{ ptp4l.interface.logSyncInterval }}
+logMinDelayReqInterval {{ ptp4l.interface.logMinDelayReqInterval }}
+delay_mechanism {{ ptp4l.interface.delay_mechanism }}
+network_transport {{ ptp4l.interface.network_transport }}
+

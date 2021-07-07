@@ -1,0 +1,5 @@
+- name: Create /etc/network/interface
+  include_tasks: interfaces.yml
+
+- name: Check network setup
+  include_tasks: check.yml

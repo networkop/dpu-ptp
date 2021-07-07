@@ -1,0 +1,6 @@
+- name: Create configuration
+  include_tasks: config.yml
+
+- name: Setup container
+  include_tasks: docker.yml
+

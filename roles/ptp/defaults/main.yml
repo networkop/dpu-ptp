@@ -1,0 +1,23 @@
+container_name: ptp-service-containe
+image_name: nvcr.io/ea-rivermax/dpu-ptp-service/dpu-ptp-service:21.03-v1
+ngc_registry: nvcr.io
+config_dir: /etc/ptp4l/
+log_dir: /var/log
+ptp4l:
+  global:
+    domainNumber: 127
+    priority1: 128
+    priority2: 127
+    use_syslog: 1
+    logging_level: 6
+    tx_timestamp_timeout: 30
+    hybrid_e2e: 1
+    dscp_event: 46
+    dscp_general: 46
+  interface:
+    logAnnounceInterval: -2
+    announceReceiptTimeout: 3
+    logSyncInterval: -3
+    logMinDelayReqInterval: -3
+    delay_mechanism: E2E
+    network_transport: UDPv4

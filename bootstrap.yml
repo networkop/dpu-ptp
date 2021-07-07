@@ -1,0 +1,11 @@
+- name: Bootstrap DPU PTP
+  hosts: localhost
+  become: false
+  gather_facts: true
+  vars_files:
+    - ./vars/input.yml
+
+  roles:
+      - { role: pre_flight }
+      - { role: interface }
+      - { role: ptp }

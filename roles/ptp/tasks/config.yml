@@ -1,0 +1,17 @@
+- name: Create required directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0755'
+  with_items:
+  - "{{ config_dir }}"
+  - "{{ log_dir }}"
+
+- name: Create ptp4l configuration file
+  ansible.builtin.template:
+    src: ptp4l.j2
+    dest: "{{ (config_dir, 'ptp4l.conf') | path_join }}"
+    owner: root
+    group: root
+    mode: '0644'
+  notify: Restart container

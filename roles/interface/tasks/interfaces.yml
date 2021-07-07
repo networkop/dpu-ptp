@@ -1,0 +1,11 @@
+- name: Template a file to /etc/network/interfaces
+  ansible.builtin.template:
+    src: interfaces.j2
+    dest: /etc/network/interfaces
+    owner: root
+    group: root
+    mode: '0644'
+  notify: Restart network
+
+- name: Apply changes if necessary
+  meta: flush_handlers
