@@ -29,7 +29,8 @@ To get the API key login ngc.nvidia.com and go to Setup->Generate API Key, press
 
 ```
 ip_address: 20.138.1.1/16
-ptp_interface: swp12
+ptp_interface: p0
+mlx_config_path: /home/ubuntu/mlxconfig_host.db
 ```
 
 3. Bootstrap PTP 
