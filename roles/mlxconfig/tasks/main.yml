@@ -1,5 +1,11 @@
 - name: Ensure DPU mode
   include_tasks: mode.yml
 
-- name: Check network setup
-  include_tasks: check.yml
+- name: Remove interfaces from OVS
+  include_tasks: ovs.yml
+
+- name: Enable real-time hardware clock
+  include_tasks: clock.yml
+
+- name: Improve PTP accurace
+  include_tasks: ethtool.yml

@@ -1,0 +1,8 @@
+- name: Check TX timestamping is enabled
+  ansible.builtin.shell: "ethtool --show-priv-flags {{ ptp_interface }} | grep tx_port"
+  register: tx_check
+  changed_when: False
+
+- name: Enable TX timestamping if necessary
+  ansible.builtin.shell: "ethtool --set-priv-flags {{ ptp_interface }} tx_port_ts on"
+  when: tx_check.stdout.find(' on') == -1

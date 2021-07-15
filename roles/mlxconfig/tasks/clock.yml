@@ -1,0 +1,14 @@
+- name: Check if real-time hardware clock is enabled
+  ansible.builtin.shell: "mlxconfig -d {{ mst[ptp_interface]['mst'] }} -b {{ mlx_config_path }} q | grep REAL_TIME_CLOCK_ENABLE"
+  register: clock_check
+  changed_when: False
+  failed_when: clock_check.rc > 1
+
+
+- name: Fail if real-time clock is not enabled
+  ansible.builtin.fail:
+    msg: >
+      Real-time hardware clock is not set. 
+      Please run `sudo mlxconfig -d {{ mst[ptp_interface]['mst'] }} -b {{ mlx_config_path }} set REAL_TIME_CLOCK_ENABLE=1` 
+      and reboot the Bluefield hosting server.
+  when: clock_check.stdout.find('True') == -1

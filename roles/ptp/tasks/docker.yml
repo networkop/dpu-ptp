@@ -4,6 +4,11 @@
     password: "{{ ansible_env.NGC_KEY }}"
     registry_url: "{{ ngc_registry }}"
 
+- name: Pull the PTP image
+  community.docker.docker_image:
+    name: "{{ image_name }}"
+    source: pull
+
 - name: Restart container
   community.docker.docker_container:
     name: "{{ container_name }}"

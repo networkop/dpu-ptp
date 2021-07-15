@@ -1,0 +1,9 @@
+- name: Check if the PTP port is in OVS
+  ansible.builtin.shell: "ovs-vsctl show | grep {{ ptp_interface }}"
+  register: ovs_check
+  changed_when: False
+  failed_when: ovs_check.rc > 1
+
+- name: Delete port from OVS 
+  ansible.builtin.shell: "ovs-vsctl del-port ovsbr1 {{ ptp_interface }}"
+  when: ovs_check.rc == 0

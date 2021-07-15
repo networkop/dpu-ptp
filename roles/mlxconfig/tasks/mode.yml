@@ -9,7 +9,16 @@
       template_path: "{{ role_path }}/templates/mst.yaml"
     set_fact: mst
 
+- name: Check DPU mode
+  ansible.builtin.shell: "mlxconfig -d {{ mst[ptp_interface]['mst'] }} q | grep -i model"
+  register: dpu_mode
 
-- name: Show parsed values
-  ansible.builtin.debug:
-    var: mst
+- name: Fail if DPU mode is not SEPERATED_HOST
+  ansible.builtin.fail:
+    msg: >
+      Incorrect DPU mode. 
+      Please run `sudo mlxconfig -d {{ mst[ptp_interface]['mst'] }} s INTERNAL_CPU_MODEL=0` 
+      and reboot the Bluefield hosting server.
+  when: dpu_mode.stdout.find('SEPERATED_HOST') == -1
+
+
