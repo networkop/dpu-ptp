@@ -1,0 +1,10 @@
+- name: Check the IP of PTP interface
+  ansible.builtin.shell: ip -br addr show "{{ ptp_interface }}"
+  register: check_ip
+  changed_when: False
+    
+
+- name: Check that PTP interface has been configured correctly
+  ansible.builtin.fail:
+    msg: "Interface IP has not been configured"
+  when: ip_address not in check_ip.stdout

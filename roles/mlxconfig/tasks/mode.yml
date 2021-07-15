@@ -1,0 +1,15 @@
+- name: Run 'mst start'
+  ansible.builtin.shell: mst start
+
+- name: Parse 'mst -v'
+  ansible.netcommon.cli_parse:
+    command: mst -v
+    parser:
+      name: ansible.netcommon.native
+      template_path: mst.j2
+    set_fact: mst
+
+
+- name: Show parsed values
+  ansible.builtin.debug:
+    var: mst

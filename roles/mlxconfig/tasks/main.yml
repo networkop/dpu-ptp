@@ -1,0 +1,5 @@
+- name: Ensure DPU mode
+  include_tasks: mode.yml
+
+- name: Check network setup
+  include_tasks: check.yml
