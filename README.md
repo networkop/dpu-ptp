@@ -1,14 +1,18 @@
 ## Requirements
 
-Ansible 2.9+ needs to be installed
+Ansible 2.10+ needs to be installed:
 
 ```
-python3 -m pip install --user ansible
-python3 -m pip install --user docker
+sudo apt update 
+sudo apt install python3-pip -y
+sudo python3 -m pip install ansible~=2.10
 ```
 
+Install extra dependencies:
+
 ```
-ansible-galaxy collection install -r collections/requirements.yml
+sudo python3 -m pip install docker
+sudo ansible-galaxy collection install -r collections/requirements.yml
 ```
 
 ## Boostrapping PTP
@@ -31,6 +35,6 @@ ptp_interface: swp12
 3. Bootstrap PTP 
 
 ```
-ansible-playbook bootstrap.yml
+sudo ansible-playbook bootstrap.yml
 ```
 

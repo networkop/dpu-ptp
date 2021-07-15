@@ -1,18 +1,18 @@
 ---
 - example: 'BlueField2(rev:1)       /dev/mst/mt41686_pciconf0.1   03:00.1   mlx5_1          net-p1                    -1'
   getval: |
+    (?x)
     (?P<device_type>\S+)\s+     
     (?P<mst>\S+)\s+
     (?P<PCI>\S+)\s+
     (?P<rdma>\S+)\s+
     (?P<net>\S+)\s+
-    (?P<numa>\S+)\s+
   result:
+    "{{ net.split('-') | last }}":
         device_type: "{{ device_type }}"
         mst: "{{ mst }}"
         PCI: "{{ PCI }}"
         rdma: "{{ rdma }}"
         net: "{{ net }}"
-        numa: "{{ numa }}"
   shared: True
 
