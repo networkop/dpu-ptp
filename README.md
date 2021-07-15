@@ -25,7 +25,9 @@ export NGC_KEY='...'
 
 To get the API key login ngc.nvidia.com and go to Setup->Generate API Key, press the Generate API Key from the top right corner.
 
-2. Check the input variables and update them to match your environment
+2. Make sure you've downloaded the mlxconfig_host.db from the [Rivermax Getting Started page](https://developer.nvidia.com/networking/rivermax-getting-started) and copied the file to the DPU.
+
+3. Check the input variables and update them to match your environment
 
 ```
 ip_address: 20.138.1.1/16
@@ -33,9 +35,14 @@ ptp_interface: p0
 mlx_config_path: /home/ubuntu/mlxconfig_host.db
 ```
 
-3. Bootstrap PTP 
+4. Bootstrap PTP 
 
 ```
-sudo ansible-playbook bootstrap.yml
+ansible-playbook bootstrap.yml
 ```
 
+If running as sudo use this command:
+
+```
+NGC_KEY=$NGC_KEY sudo -E ansible-playbook bootstrap.yml
+```
