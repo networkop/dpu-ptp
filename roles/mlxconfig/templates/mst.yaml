@@ -9,10 +9,10 @@
     (?P<net>\S+)\s+
   result:
     "{{ net.split('-') | last }}":
-        device_type: "{{ device_type }}"
-        mst: "{{ mst }}"
-        PCI: "{{ PCI }}"
-        rdma: "{{ rdma }}"
-        net: "{{ net }}"
+      device_type: "{{ device_type }}"
+      mst: "{{ mst }}"
+      PCI: "{{ PCI }}"
+      rdma: "{{ rdma }}"
+      net: "{{ net }}"
   shared: True
 
