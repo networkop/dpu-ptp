@@ -1,7 +1,7 @@
 - name: Log into DockerHub
   community.docker.docker_login:
     username: $oauthtoken
-    password: "{{ ansible_env.NGC_KEY }}"
+    password: "{{ NGC_KEY }}"
     registry_url: "{{ ngc_registry }}"
 
 - name: Pull the PTP image

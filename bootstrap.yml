@@ -1,9 +1,11 @@
 - name: Bootstrap DPU PTP
-  hosts: localhost
-  become: false
-  gather_facts: true
+  hosts: bluefield
+  become: true
+  gather_facts: false
   vars_files:
     - ./vars/input.yml
+  vars:
+    safe: "true"
 
   roles:
       - { role: pre_flight }

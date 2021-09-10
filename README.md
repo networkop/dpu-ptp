@@ -17,6 +17,8 @@ sudo ansible-galaxy collection install -r collections/requirements.yml
 
 ## Boostrapping PTP
 
+> Note: the playbook automates all the steps from the DPU Deployment Guide starting from 7.2 `Switch from DPU-embedded mode to SEPERATED_HOST mode`
+
 1. Make sure your NGC credentials are exported like this:
 
 ```
@@ -35,14 +37,20 @@ ptp_interface: p0
 mlx_config_path: /home/ubuntu/mlxconfig_host.db
 ```
 
-4. Bootstrap PTP 
+4. Update the inventory to match the details of the DPU
+
+The following information will be used by Ansible to SSH into the DPU:
 
 ```
-ansible-playbook bootstrap.yml
+$ cat hosts
+bluefield ansible_host=172.16.0.190 ansible_user=ubuntu ansible_password=ubuntu
 ```
 
-If running as sudo use this command:
+5. Bootstrap PTP 
 
 ```
-NGC_KEY=$NGC_KEY sudo -E ansible-playbook bootstrap.yml
+ansible-playbook -i hosts -e NGC_KEY=$NGC_KEY bootstrap.yml
 ```
+
+
+> Note: by default this playbook will stop if it detects that the mode is not correct. It's possible to make it change the mode and force-reboot the DPU by passing an extra arguments `-e safe=false`

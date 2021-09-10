@@ -3,5 +3,5 @@
     msg: >
       NGC_KEY is not defined. Provide your Key with `export NGC_KEY=...`
       If running with sudo, re-run this playbook with `NGC_KEY=... sudo -E ansible-playbook bootstrap.yml`
-  when: ansible_env.NGC_KEY is not defined
+  when: NGC_KEY is not defined
 

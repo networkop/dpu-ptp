@@ -1,3 +1,8 @@
+- name: Print warning 1
+  ansible.builtin.debug:
+    msg: Running in unsafe mode, DPU may be rebooted
+  when: not ( safe | bool )
+
 - name: Run 'mst start'
   ansible.builtin.shell: mst start
 
@@ -18,7 +23,28 @@
     msg: >
       Incorrect DPU mode. 
       Please run `sudo mlxconfig -d {{ mst[ptp_interface]['mst'] }} s INTERNAL_CPU_MODEL=0` 
-      and reboot the Bluefield hosting server.
-  when: dpu_mode.stdout.find('SEPERATED_HOST') == -1
+      from the DPU, reboot it and re-run the playbook.
+  when: 
+  - dpu_mode.stdout.find('SEPERATED_HOST') == -1
+  - ( safe | bool )
 
 
+- name: Change DPU mode
+  ansible.builtin.shell: mlxconfig -y -d {{ mst[ptp_interface]['mst'] }} s INTERNAL_CPU_MODEL=0
+  when: 
+  - dpu_mode.stdout.find('SEPERATED_HOST') == -1
+  - not ( safe | bool )
+
+- name: Print warning 2
+  ansible.builtin.debug:
+    msg: DPU mode changed, rebooting
+  when: 
+  - dpu_mode.stdout.find('SEPERATED_HOST') == -1
+  - not( safe | bool )
+
+- name: Rebooting
+  reboot:
+    reboot_timeout: 3600
+  when: 
+  - dpu_mode.stdout.find('SEPERATED_HOST') == -1
+  - not ( safe | bool )
